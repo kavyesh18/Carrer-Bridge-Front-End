@@ -7,7 +7,7 @@ import SimilarCompanies from "../CompanyProfile/SimilarCompanies";
 const CompanyPage = () => {
     const navigate = useNavigate();
     return <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4">
-    
+                <Divider size="xs" mx="md"/>
             <Button onClick={()=>navigate(-1)} leftSection={<IconArrowLeft size={20}/>} my="md" color="brightSun.4" variant="light">Back</Button>
         
 
