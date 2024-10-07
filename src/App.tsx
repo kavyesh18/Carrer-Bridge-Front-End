@@ -7,8 +7,7 @@ import '@mantine/dates/styles.css';
 import HomePage from './Pages/HomePage';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import FindJobs from './Pages/FindJobs';
-import Header from './Header/Header';
-import Footer from './Footer/Footer';
+import Header from './Components/Header/Header';
 import FindTalentPage from './Pages/FindTalentPage';
 import FindTalentProfile from './Pages/TalentProfile';
 import PostJobPage from './Pages/PostJobPage';
@@ -19,6 +18,7 @@ import PostedJobPage from './Pages/PostedJobPage';
 import JobHistoryPage from './Pages/JobHistoryPage';
 import SignUpPage from './Pages/SignUpPage';
 import ProfilePage from './Pages/ProfilePage';
+import Footer from './Components/Footer/Footer';
 function App() {
     const theme = createTheme({
       focusRing:"never",

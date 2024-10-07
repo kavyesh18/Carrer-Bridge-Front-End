@@ -1,7 +1,7 @@
 import { Button, Divider } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-import ApplyJobComp from "../ApplyJob/ApplyJobComp";
+import ApplyJobComp from "../Components/ApplyJob/ApplyJobComp";
 
 const ApplyJobPage = () => {
     return <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4">

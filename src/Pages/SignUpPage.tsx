@@ -1,6 +1,6 @@
 import { IconArrowMergeAltRight } from "@tabler/icons-react";
-import Signup from "../SignupLogin/Signup";
-import Login from "../SignupLogin/Login";
+import Signup from "../Components/SignupLogin/Signup";
+import Login from "../Components/SignupLogin/Login";
 import { useLocation } from "react-router-dom";
 
 const SignUpPage = () => {

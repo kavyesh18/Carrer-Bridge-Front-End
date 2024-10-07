@@ -1,8 +1,8 @@
 import { Button, Divider } from "@mantine/core";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-import JobDesc from "../JobDescription/JobDesc";
-import RecommendedJob from "../JobDescription/RecommendedJob";
+import JobDesc from "../Components/JobDescription/JobDesc";
+import RecommendedJob from "../Components/JobDescription/RecommendedJob";
 
 const JobDescPage = () => {
     return <div className="min-h-[90vh] bg-mine-shaft-950 font-['poppins'] p-4">
