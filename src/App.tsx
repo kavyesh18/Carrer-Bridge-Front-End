@@ -1,9 +1,10 @@
 import './App.css';
-import { createTheme, Divider, MantineProvider } from '@mantine/core';
+import { createTheme, Divider, MantineProvider, Notification } from '@mantine/core';
 import '@mantine/core/styles.css'
 import '@mantine/carousel/styles.css';
 import '@mantine/tiptap/styles.css';
 import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
 import HomePage from './Pages/HomePage';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import FindJobs from './Pages/FindJobs';
@@ -19,6 +20,7 @@ import JobHistoryPage from './Pages/JobHistoryPage';
 import SignUpPage from './Pages/SignUpPage';
 import ProfilePage from './Pages/ProfilePage';
 import Footer from './Components/Footer/Footer';
+import { Notifications } from '@mantine/notifications';
 function App() {
     const theme = createTheme({
       focusRing:"never",
@@ -35,6 +37,7 @@ function App() {
 
   return (
     <MantineProvider defaultColorScheme='dark' theme={theme} >
+      <Notifications position="top-right" zIndex={1000}/>
       <BrowserRouter>
       <div className='relative'>
       <Header/>
