@@ -43,7 +43,7 @@ const ResetPassword = (props: any) => {
       .catch((err) => {
         console.log(err);
         setOtpSending(false);
-        ErrorNotification("OTP Failed to Send", err.response?.data?.errorMessage || "Error");
+        ErrorNotification("OTP Failed to Send", err.response?.data?.errorMessage || "User not registred");
       });
   };
 
@@ -105,10 +105,10 @@ const ResetPassword = (props: any) => {
           placeholder="Your email"
           rightSection={
             otpsent ? (
-              <div className="text-xs text-[#f5b916]">{seconds}s</div> // BrightSun.4 color for the timer
+              <div className="text-xs text-[#f5b916]">{seconds}s</div> 
             ) : (
               <Button
-                className="ml-1 text-xs px-3 py-1 bg-[#5C2FC2] text-white rounded hover:bg-[#4a23a1] transition-colors"
+                className="ml-1 text-xs px-3 py-1 bg-bright-sun-400 text-white rounded hover:bg-bright-sun-200 transition-colors"
                 size="xs"
                 autoContrast
                 loading={otpsending}
@@ -138,7 +138,6 @@ const ResetPassword = (props: any) => {
   fullWidth
   loading={otpsending}
   onClick={resendOtp}
-  variant="light" 
   color="brightSun.4" 
   disabled={resendLoader} 
   autoContrast
@@ -152,7 +151,7 @@ const ResetPassword = (props: any) => {
     },
   })}
 >
-  {resendLoader ? `${seconds}s` : "Resend"} {/* Countdown text */}
+  {resendLoader ? `${seconds}s` : "Resend"} 
 </Button>
             <Button
               size="xs"

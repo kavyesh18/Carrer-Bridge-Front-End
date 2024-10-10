@@ -1,5 +1,4 @@
 import axios from "axios"
-import { error } from "console";
 const base_url = "http://localhost:8080/users/";
 
 

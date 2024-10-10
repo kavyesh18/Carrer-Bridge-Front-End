@@ -1,16 +1,7 @@
-import {
-  Anchor,
-  Button,
-  Checkbox,
-  Group,
-  PasswordInput,
-  Radio,
-  rem,
-  TextInput,
-} from "@mantine/core";
+import {Button,Group,LoadingOverlay,PasswordInput,Radio,rem,TextInput,} from "@mantine/core";
 import { IconAt, IconCheck, IconLock, IconX } from "@tabler/icons-react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../Services/UserService";
 import { signupValidation } from "../../Services/FormValidation";
 import { notifications } from "@mantine/notifications";
@@ -26,9 +17,9 @@ const form = {
 const Signup = () => {
   const [data, setData] = useState<{ [key: string]: string }>(form);
   const [formError, setFormError] = useState<{ [key: string]: string }>(form);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Handle input change
   const handleChange = (event: any) => {
     if (typeof event === "string") {
       setData({ ...data, accountType: event });
@@ -55,7 +46,6 @@ const Signup = () => {
     }
   };
 
-  // Handle form submission
   const handleSubmit = () => {
     let valid = true,
       newFormError: { [key: string]: string } = {};
@@ -67,11 +57,12 @@ const Signup = () => {
       else if (data[key] !== data["password"])
         newFormError[key] = "Passwords do not match.";
       if (newFormError[key]) valid = false;
-    }   
+    }
 
     setFormError(newFormError);
 
     if (valid === true) {
+      setLoading(true);
       setData(form);
       registerUser(data)
         .then((res) => {
@@ -86,10 +77,12 @@ const Signup = () => {
             className: "!border-green-500",
           });
           setTimeout(() => {
+            setLoading(false);
             navigate("/login");
           }, 4000);
         })
         .catch((err) => {
+          setLoading(false);
           console.log(err);
           notifications.show({
             title: "Account Creation Failed",
@@ -105,86 +98,101 @@ const Signup = () => {
   };
 
   return (
-    <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
-      <div className="text-2xl font-semibold">Create Your Account</div>
-      <TextInput
-        value={data.name}
-        error={formError.name}
-        onChange={handleChange}
-        name="name"
-        withAsterisk
-        label="Full Name"
-        placeholder="Your Name"
-      />
-      <TextInput
-        value={data.email}
-        error={formError.email}
-        onChange={handleChange}
-        name="email"
-        withAsterisk
-        leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}
-        label="Email"
-        placeholder="Your email"
-      />
-      <PasswordInput
-        value={data.password}
-        error={formError.password}
-        onChange={handleChange}
-        name="password"
-        withAsterisk
-        leftSection={
-          <IconLock style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
-        }
-        label="Password"
-        placeholder="Create Your Password"
-      />
-      <PasswordInput
-        value={data.confirmPassword}
-        error={formError.confirmPassword}
-        onChange={handleChange}
-        name="confirmPassword"
-        withAsterisk
-        leftSection={
-          <IconLock style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
-        }
-        label="Confirm Password"
-        placeholder="Re-Enter Your Password"
-      />
-      <Radio.Group
-        value={data.accountType}
-        onChange={handleChange}
-        label="You are?"
-        withAsterisk
-      >
-        <Group mt="xs">
-          <Radio value="APPLICANT" label="Applicant" />
-          <Radio value="EMPLOYER" label="Employer" />
-        </Group>
-      </Radio.Group>
-      <Checkbox
-        label={
-          <>
-            I accept <Anchor>Terms & Conditions</Anchor>
-          </>
-        }
-      />
-      <Button onClick={handleSubmit} autoContrast variant="filled">
-        Create Your Account
-      </Button>
-
-      <div className="mx-auto cursor-pointer">
-        Already have an account?{" "}
-        <span className="underline text-mine-shaft-300 hover:text-bright-sun-500"
-          onClick={() => {
-            navigate("/login");
-            setFormError(form);
-            setData(form);
-          }}
+    <>
+      {" "}
+      <LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        className="translate-x-1/2"
+        overlayProps={{ radius: "sm", blur: 2 }}
+        loaderProps={{ color: "brightSun.4", type: "bars" }}
+      />{" "}
+      <div className="w-1/2 px-20 flex flex-col justify-center gap-3">
+        <div className="text-2xl font-semibold">Create Your Account</div>
+        <TextInput
+          value={data.name}
+          error={formError.name}
+          onChange={handleChange}
+          name="name"
+          withAsterisk
+          label="Full Name"
+          placeholder="Your Name"
+        />
+        <TextInput
+          value={data.email}
+          error={formError.email}
+          onChange={handleChange}
+          name="email"
+          withAsterisk
+          leftSection={<IconAt style={{ width: rem(16), height: rem(16) }} />}
+          label="Email"
+          placeholder="Your email"
+        />
+        <PasswordInput
+          value={data.password}
+          error={formError.password}
+          onChange={handleChange}
+          name="password"
+          withAsterisk
+          leftSection={
+            <IconLock
+              style={{ width: rem(18), height: rem(18) }}
+              stroke={1.5}
+            />
+          }
+          label="Password"
+          placeholder="Create Your Password"
+        />
+        <PasswordInput
+          value={data.confirmPassword}
+          error={formError.confirmPassword}
+          onChange={handleChange}
+          name="confirmPassword"
+          withAsterisk
+          leftSection={
+            <IconLock
+              style={{ width: rem(18), height: rem(18) }}
+              stroke={1.5}
+            />
+          }
+          label="Confirm Password"
+          placeholder="Re-Enter Your Password"
+        />
+        <Radio.Group
+          value={data.accountType}
+          onChange={handleChange}
+          label="You are?"
+          withAsterisk
         >
-          Login
-        </span>
+          <Group mt="xs">
+            <Radio value="APPLICANT" label="Applicant" />
+            <Radio value="EMPLOYER" label="Employer" />
+          </Group>
+        </Radio.Group>
+        <Button
+          loading={loading}
+          onClick={handleSubmit}
+          autoContrast
+          variant="filled"
+        >
+          Create Your Account
+        </Button>
+
+        <div className="mx-auto cursor-pointer">
+          Already have an account?{" "}
+          <span
+            className="underline text-mine-shaft-300 hover:text-bright-sun-500"
+            onClick={() => {
+              navigate("/login");
+              setFormError(form);
+              setData(form);
+            }}
+          >
+            Login
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
